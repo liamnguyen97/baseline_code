@@ -1,7 +1,7 @@
 name: resnext_s
 sync_dist: True # Use when training with multiple gpu
 arch:
-  _target_: src.networks.ResNext
+  _target_: networks.ResNext
   n_class: 2
   model_name: resnext50_32x4d
   pretrained: True

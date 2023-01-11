@@ -23,7 +23,7 @@ def train(config):
     wandb_logger = WandbLogger(
         project="zalo_2022",
         log_model=False,
-        settings=wandb.Settings(start_method="fork"),
+        settings=wandb.Settings(start_method="spawn"),
         name=Path.cwd().stem,
         dir=Path.cwd()
     )
@@ -54,16 +54,18 @@ def train(config):
         )
 
     model = TIMMModel(config.model)
-    datamodule = CustomDataModule(config.dataset)
+    # datamodule = CustomDataModule(config.dataset)
     trainer = pl.Trainer(
         logger=wandb_logger,
         callbacks=callbacks,
-        strategy=strategy,
+        # strategy=strategy,
         **config.trainer,
     )
 
     wandb_logger.watch(model, log="parameters", log_graph=False)
-    trainer.fit(model, datamodule=datamodule)
+    # trainer.fit(model, datamodule=datamodule)
+    print(config.dataset.train_data_dir)
+    print(config.model_ckpt.dirpath)
     wandb.finish()
     
 

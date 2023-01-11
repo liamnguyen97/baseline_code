@@ -81,7 +81,7 @@ model_ckpt:
 
 hydra:
   run:
-    dir: ./outputs/h
+    dir: ./outputs/s
   # sweep:
   #   dir: ./multirun/${name}-${model.name}
   #   subdir: ${now:%Y-%m-%d-%H-%M-%S}

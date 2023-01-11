@@ -6,15 +6,15 @@ import torchmetrics
 from hydra.utils import instantiate
 from pytorch_lightning import LightningModule
 
-from .networks import ResNext
+from networks import ResNext
 
 class TIMMModel(LightningModule):
     def __init__(self, config):
         super().__init__()
         self.config = config
         self.criterion = instantiate(self.config.loss)
-        self.train_acc = torchmetrics.Accuracy()
-        self.val_acc = torchmetrics.Accuracy()
+        self.train_acc = torchmetrics.Accuracy(task="multiclass", num_classes=2)
+        self.val_acc = torchmetrics.Accuracy(task="multiclass", num_classes=2)
         self.model = instantiate(self.config.arch)
 
     def configure_optimizers(self):
